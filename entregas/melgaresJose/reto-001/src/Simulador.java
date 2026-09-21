@@ -1,29 +1,63 @@
 class Simulador {
 
+    private final int DURACION_HORAS = 4;
+    private final int MAXIMO_CAJAS = 7;
+
     private int horas;
     private int minutos;
-    private final int DURACION_HORAS = 4;
-    private Fila laFila;
+    private int cajasActivas;
 
-    public static void main(String[] args) throws InterruptedException {
+    private Caja[] cajas;
+
+    public static void main(String[] args) {
         Simulador simulador = new Simulador();
         simulador.iniciarSimulacion();
     }
 
-    private void iniciarSimulacion() throws InterruptedException {
+    public Simulador() {
         horas = 0;
         minutos = 0;
-        laFila = new Fila();
+        cajasActivas = 1;
+        cajas = new Caja[MAXIMO_CAJAS];
+        cajas[0] = new Caja(cajasActivas);
+    }
 
+    private void iniciarSimulacion() {
         while (horas < DURACION_HORAS) {
             mostrarReloj();
-            laFila.aumentarFila();
-            laFila.mostrarFila();
-            Thread.sleep(1000);
+            simular();
+            dibujarSimulacion();
             avanzarTiempo();
         }
     }
 
+    private void simular() {
+        if(llegaAlguien()) {
+            System.out.print(" Llego alguien: ☻");
+        }
+        abrioCaja();
+    }
+
+    private void dibujarSimulacion() {
+        for(int i = 0; i < cajasActivas; i++) {
+            cajas[i].dibujarCaja();
+        }
+    }
+
+
+    private void abrioCaja() {
+        final double PROBABILIDAD_DE_APERTURA = 0.4;
+        if( Math.random() < PROBABILIDAD_DE_APERTURA ) {
+            cajasActivas++;
+            cajas[cajasActivas - 1] = new Caja(cajasActivas);
+        }
+    }
+
+    private boolean llegaAlguien() {
+        final double PROBABILIDAD_DE_LLEGADA = 0.6;
+        return Math.random() < PROBABILIDAD_DE_LLEGADA;
+    }
+    
     private void mostrarReloj() {
         System.out.printf("[%02d:%02d] ", horas, minutos);
     }
