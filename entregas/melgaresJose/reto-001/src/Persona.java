@@ -13,4 +13,8 @@ class Persona {
     public void colocarDetrasDe(Persona enFrente) {
         detrasDe = enFrente;
     }
+
+    public Persona quienEstaDetras() {
+        return detrasDe;
+    }
 }

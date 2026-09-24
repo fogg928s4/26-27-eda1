@@ -28,17 +28,21 @@ class Fila {
         }
     }
 
-    public void aumentarFila() {
-        if (Math.random() < 0.6) {
-            aumentarFila(new Persona());
+    public boolean atenderPersona() {
+        if (primeroEnFila != null) {
+            primeroEnFila = primeroEnFila.getDetrasDe();
+            longitud--;
+            return true;
         }
+        return false;
     }
 
-    public void mostrarFila() {
+    public void mostrarFila(int numeroCaja) {
+        System.out.print("☺ [" + numeroCaja + "]: ");
         Persona actual = primeroEnFila;
         while (actual != null) {
             System.out.print(" ☻ ");
-            actual = actual.getDetrasDe();
+            actual = actual.quienEstaDetras();
         }
         System.out.println();
     }
