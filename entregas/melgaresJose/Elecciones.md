@@ -29,3 +29,7 @@ class Candidato {
 final int CANDIDATOS_POSTULADOS = 3;
 Candidato[] candidatos = new Candidato[CANDIDATOS_POSTULADOS + 2];
 ```
+
+## Una pila para los votos
+
+En caso de querer guardar *el voto* y su información asociado a cada uno de los candidatos, se puede modelar como una pila. Como ejemplo práctico se puede tomar el recuento por "rayas": los votos se van escribiendo al final, y en caso de errores se borran del final.
